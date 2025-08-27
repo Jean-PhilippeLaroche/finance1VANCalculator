@@ -6,9 +6,9 @@ class VAEIACC:
     def __init__(self, mise_fonds=None):
         self.mise_fonds = mise_fonds or MiseFondsInitiale()
         self.taux_imposition = self.mise_fonds.taux_imposition
-        self.cout_capital_initial = float(input("Quel est le coût en capital initial de l'actif? ").strip())
+        self.cout_capital_initial = float(input("Quel est le coût en capital initial de l'actif? ").replace(" ", ""))
         self.taux_acc = (float(input("Quel est le taux d'ACC pour cette catégorie d'actif en pourcentage? "))) / 100
-        self.valeur_vente = float(input("Quelle est la valeur de revente de l'actif? ").strip())
+        self.valeur_vente = float(input("Quelle est la valeur de revente de l'actif? ").replace(" ", ""))
         self.r = min(self.cout_capital_initial, self.valeur_vente)
         self.taux_actualisation = (float(input("Quel est le taux d'actualisation en pourcentage? "))) / 100
         self.duree_vie_actif = (float(input("Quelle est la durée de vie de l'actif en années? ")))

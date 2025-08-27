@@ -9,7 +9,7 @@ class CalculateurAnnuitees:
 
         self.temps_debut = int(input("Quelle est l'année de début de cette série d'annuitées? (le projet débute en l'an 0) "))
         self.temps_fin = int(input("Quel est l'année de fin de cette série d'annuitées? "))
-        self.annuitees = float(input("Quel est le montant des annuitées? ").strip())
+        self.annuitees = float(input("Quel est le montant des annuitées? ").replace(" ", ""))
         self.taux_croissance = (float(input("Quel est le taux de croissance/décroissance en pourcentage? (chiffre négatif pour décroissance) ")) / 100)
 
     def calculateur_VA_simple(self):

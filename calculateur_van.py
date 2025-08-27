@@ -14,9 +14,7 @@ class CalculateurVAN:
 
         # objets liés au projet (utilisent mise_fonds)
         self.nombre_annuitees = int(input("Combien y a-t-il de séries d'annuitées différentes? "))
-        self.series_annuitees = [
-            CalculateurAnnuitees(self.mise_fonds) for _ in range(self.nombre_annuitees)
-        ]
+
         self.va_revente_obj = VARevente(self.mise_fonds)
 
         self.nombre_actif = int(input("Combien d'actifs ont été utilisé pendant le projet? "))
@@ -24,13 +22,22 @@ class CalculateurVAN:
         self.actifs_vaimpot = []
         self.actifs_vafermeture = []
 
+        # pour stocker les séries d'annuités après saisie et calcul
+        self.series_annuitees = []
+
     def valeur_etape_1(self):
         return self.mise_fonds.mise_de_fonds_initiale()
 
     def valeur_etape_2(self):
         total = 0
-        for i, annuitee in enumerate(self.series_annuitees):
+        self.series_annuitees = []
+
+        for i in range(self.nombre_annuitees):
             print(f"\n--- Série d'annuités {i + 1} (étape 2) ---")
+            annuitee = CalculateurAnnuitees(self.mise_fonds)  # saisie série par série
+            self.series_annuitees.append(annuitee)
+
+            # calcul immédiat
             if annuitee.taux_croissance == 0:
                 valeur = annuitee.calculateur_VA_simple()
             else:
@@ -38,6 +45,7 @@ class CalculateurVAN:
 
             print(f"Valeur actualisée de la série {i + 1}: {valeur:.2f}")
             total += valeur
+
         print(f"\nTotal des séries d'annuités (étape 2) : {total:.2f}")
         return total
 
