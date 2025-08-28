@@ -11,6 +11,7 @@ class CalculateurVAN:
     def __init__(self):
         # saisie unique des paramètres du projet
         self.mise_fonds = MiseFondsInitiale()
+        self.nombre_mise_fonds = int(input("Combien y a-t-il de bloc de mise de fonds différents? "))
 
         # objets liés au projet (utilisent mise_fonds)
         self.nombre_annuitees = int(input("Combien y a-t-il de séries d'annuitées différentes? "))
@@ -25,8 +26,25 @@ class CalculateurVAN:
         # pour stocker les séries d'annuités après saisie et calcul
         self.series_annuitees = []
 
+        self.mises_fonds = []
+
     def valeur_etape_1(self):
-        return self.mise_fonds.mise_de_fonds_initiale()
+        total = 0
+        self.mises_fonds = []  # on garde en mémoire chaque mise
+
+        for i in range(self.nombre_mise_fonds):
+            print(f"\n--- Bloc de mise de fonds {i + 1} (étape 1) ---")
+            mise = MiseFondsInitiale()  # saisie des infos pour ce bloc
+            self.mises_fonds.append(mise)
+
+            # calcul immédiat
+            valeur = mise.mise_de_fonds_initiale()
+            print(f"Valeur actualisée de la mise de fonds {i + 1}: {valeur:.2f}")
+
+            total += valeur
+
+        print(f"\nTotal des mises de fonds (étape 1) : {total:.2f}")
+        return total
 
     def valeur_etape_2(self):
         total = 0
