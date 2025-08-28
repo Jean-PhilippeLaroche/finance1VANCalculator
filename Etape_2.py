@@ -6,6 +6,7 @@ class CalculateurAnnuitees:
 
         self.mise_fonds = mise_fonds or MiseFondsInitiale()
         self.taux_global = self.mise_fonds.taux_global
+        self.taux_imposition = self.mise_fonds.taux_imposition
 
         self.temps_debut = int(input("Quelle est l'année de début de cette série d'annuitées? (le projet débute en l'an 0) "))
         self.temps_fin = int(input("Quel est l'année de fin de cette série d'annuitées? "))
@@ -29,7 +30,11 @@ class CalculateurAnnuitees:
         # Décaler dans le temps (si la série commence après t=0)
         valeur_actualisee /= (1 + self.taux_global) ** self.temps_debut
 
-        return valeur_actualisee
+        if valeur_actualisee > 0:
+            valeur_actualisee = valeur_actualisee * (1 - self.taux_imposition)
+            return valeur_actualisee
+        else:
+            return valeur_actualisee
 
     def calculateur_VA_croissance(self):
 
@@ -53,4 +58,8 @@ class CalculateurAnnuitees:
         # Décalage dans le temps
         valeur_actualisee /= (1 + self.taux_global) ** self.temps_debut
 
-        return valeur_actualisee
+        if valeur_actualisee > 0:
+            valeur_actualisee = valeur_actualisee * (1 - self.taux_imposition)
+            return valeur_actualisee
+        else:
+            return valeur_actualisee
